@@ -285,7 +285,14 @@
 (define (generated-part- x genpart)
   (cond ((or (atom? x) (quoted? x) (function-def? x)) x)
         ((if-generated? x)
-         (if genpart `($ ,(caddr x)) (cadddr x)))
+         (if genpart
+           ;; can't use an ssavalue here since (caddr x) could be a return statement
+           (let ((tmp (gensy)))
+             `($ (block (= ,tmp ,(caddr x))
+                        (if (call (core isa) ,tmp (core CodeInfo))
+                            (return ,tmp)
+                            ,tmp))))
+           (cadddr x)))
         (else (cons (car x)
                     (map (lambda (e) (generated-part- e genpart)) (cdr x))))))
 
