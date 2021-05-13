@@ -437,6 +437,14 @@ end
     @test record.group == :corelogging  # name of this file
 end
 
+@testset "id from @deprecate should be ::Symbol" begin
+    f() = Base.depwarn("msg", :f; force=true)
+    logs, _ = Test.collect_test_logs() do
+        f()
+    end
+    @test logs[1].id isa Symbol
+end
+
 @testset "complicated kwargs logging macro" begin
     @test_logs (:warn, "foo")  @warn "foo" argvals=:((DoNotCare{$(Expr(:escape, :Any))}(),))
 end
