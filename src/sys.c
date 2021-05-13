@@ -13,6 +13,7 @@
 
 #include "julia.h"
 #include "julia_internal.h"
+#include "llvm-version.h"
 
 #ifdef _OS_WINDOWS_
 #include <psapi.h>
