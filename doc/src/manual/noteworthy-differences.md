@@ -218,7 +218,7 @@ For users coming to Julia from R, these are some noteworthy differences:
   * Julia arrays are column-major (Fortran-ordered) whereas NumPy arrays are row-major (C-ordered)
     by default. To get optimal performance when looping over arrays, the order of the loops should
     be reversed in Julia relative to NumPy (see [relevant section of Performance Tips](@ref man-performance-column-major)).
-  * Julia's updating operators (e.g. `+=`, `-=`, ...) are *not in-place* whereas NumPy's are. This
+  * Julia's updating operators (e.g. `+=`, `-=`, ...) are *not in-place* whereas Python's are. This
     means `A = [1, 1]; B = A; B += [3, 3]` doesn't change values in `A`, it rather rebinds the name `B`
     to the result of the right-hand side `B = B + 3`, which is a new array. For in-place operation, use `B .+= 3`
     (see also [dot operators](@ref man-dot-operators)), explicit loops, or `InplaceOps.jl`.
